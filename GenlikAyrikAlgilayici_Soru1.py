@@ -39,14 +39,14 @@ if __name__ == "__main__":
         tahmin=gaa.tahminEt(x_test1)
         sonuc=y_test1-tahmin
         accuracy[i]=gaa.skor(sonuc) #modelin doğru eğitilmiş olması için 1 skorunu bekliyoruz.
-
+    plt.figure()
     plt.scatter(range(1,len(accuracy)+1),accuracy)
     plt.plot(range(1,len(accuracy)+1), accuracy)
-    plt.show()
 
+    plt.figure()
     plt.scatter(range(1,len(toplamİter)+1), toplamİter)
     plt.plot(range(1,len(toplamİter)+1), toplamİter)
-    plt.show()
+
 
 
     c=np.array(2*randint(0,2,[40,1])-1)
@@ -73,11 +73,11 @@ if __name__ == "__main__":
         tahmin2 = gaa2.tahminEt(x_test2)
         sonuc = y_test2 - tahmin2
         accuracy2[i] = gaa.skor(sonuc)  # modelin doğru eğitilmiş olması için 1 skorunu bekliyoruz.
-
+    plt.figure()
     plt.scatter(range(1, len(accuracy2) + 1), accuracy2)
     plt.plot(range(1, len(accuracy2) + 1), accuracy2)
-    plt.show()
 
+    plt.figure()
     plt.scatter(range(1, len(toplamİter2) + 1), toplamİter2)
     plt.plot(range(1, len(toplamİter2) + 1), toplamİter2)
     plt.show()
