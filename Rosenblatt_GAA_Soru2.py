@@ -39,25 +39,28 @@ for i in range(X.shape[0]):
 
 
 tumVeriler=np.concatenate([X_bias,y],axis=1)
-
 egitimBoyutu=round(tumVeriler.shape[0]*0.8)
-randomİndisler = np.random.choice(tumVeriler.shape[0], size=egitimBoyutu, replace=False)
-egitimVerisi = tumVeriler[randomİndisler, :]
-testVerisi = np.delete(tumVeriler, randomİndisler, axis=0)
 
-x_egitim = egitimVerisi[:, :-1]
-y_egitim = (egitimVerisi[:, -1]).reshape(egitimBoyutu, 1)
-x_test = testVerisi[:, :-1]
-y_test = (testVerisi[:, -1]).reshape(tumVeriler.shape[0]-egitimBoyutu, 1)
+accuracy=np.zeros((20,1))
+for i in range(20):
+    randomİndisler = np.random.choice(tumVeriler.shape[0], size=egitimBoyutu, replace=False)
+    egitimVerisi = tumVeriler[randomİndisler, :]
+    testVerisi = np.delete(tumVeriler, randomİndisler, axis=0)
 
-gaa=GenlikteAyrikAlgilayici()
+    x_egitim = egitimVerisi[:, :-1]
+    y_egitim = (egitimVerisi[:, -1]).reshape(egitimBoyutu, 1)
+    x_test = testVerisi[:, :-1]
+    y_test = (testVerisi[:, -1]).reshape(tumVeriler.shape[0]-egitimBoyutu, 1)
 
-gaa.egit(x_egitim, y_egitim, 0.1, 100,1)
-tahmin = gaa.tahminEt(x_test)
-sonuc = y_test - tahmin
-accuracy = gaa.skor(sonuc)
+    gaa=GenlikteAyrikAlgilayici()
 
-print(accuracy)
-print((gaa.egit(x_egitim, y_egitim, 1, 100,1))[1])
+
+    gaa.egit(x_egitim, y_egitim, 0.1, 100,1)
+    tahmin = gaa.tahminEt(x_test)
+    sonuc = y_test - tahmin
+    accuracy[i] = gaa.skor(sonuc)
+acc=sum(accuracy)/len(accuracy)
+print("Rastgele eğitim verileri ile yapılan 20 eğitim sonucu test verimizdeki ortalama doğruluk skorumuz: ",acc)
+
 
 plt.show()
