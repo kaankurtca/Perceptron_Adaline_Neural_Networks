@@ -18,7 +18,7 @@ for i in range(X.shape[0]):
 
 eklenenSutun=np.ones([X.shape[0],1])
 for i in range(X.shape[0]):
-    eklenenSutun[i]=  X[i,0]**2+X[i,1]**2         #X[i,0]**2 + X[i,1]**2          #y[i] - (3*X[i,0]+8*X[i,1])/2 + 0.25*np.random.rand()
+    eklenenSutun[i]=  X[i,0]**2+ X[i,1]**2         #X[i,0]**2 + X[i,1]**2          #y[i] - (3*X[i,0]+8*X[i,1])/2 + 0.25*np.random.rand()
 
 # X[:,0]= [X[index,0]+X[index,1] for index in range(len(X))]
 # X[:,1]= [X[index,1]-X[index,1] for index in range(len(X))]
@@ -55,7 +55,7 @@ for i in range(20):
     gaa=GenlikteAyrikAlgilayici()
 
 
-    gaa.egit(x_egitim, y_egitim, 0.1, 100,1)
+    gaa.egit(x_egitim, y_egitim, 0.1, 1000,1)
     tahmin = gaa.tahminEt(x_test)
     sonuc = y_test - tahmin
     accuracy[i] = gaa.skor(sonuc)

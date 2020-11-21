@@ -46,7 +46,7 @@ if __name__ == "__main__":
     plt.plot(range(1,len(accuracy)+1), accuracy)
 
     acc = sum(accuracy) / len(accuracy)
-    print("Rastgele eğitim verileri ile yapılan 20 eğitim sonucu test verimizdeki ortalama doğruluk skorumuz: ", acc)
+    print("Ayrıştırılabilir dizide, 20 eğitim sonucu test verimizdeki ortalama doğruluk skorumuz: ", acc)
 
     plt.figure()
     plt.scatter(range(1,len(toplamİter)+1), toplamİter)
@@ -84,7 +84,7 @@ if __name__ == "__main__":
     plt.plot(range(1, len(accuracy2) + 1), accuracy2)
 
     acc2 = sum(accuracy2) / len(accuracy2)
-    print("Rastgele eğitim verileri ile yapılan 20 eğitim sonucu test verimizdeki ortalama doğruluk skorumuz: ", acc2)
+    print("Ayrıştırılamayan dizide, 20 eğitim sonucu test verimizdeki ortalama doğruluk skorumuz: ", acc2)
 
 
     plt.figure()
@@ -92,9 +92,3 @@ if __name__ == "__main__":
     plt.plot(range(1, len(toplamİter2) + 1), toplamİter2)
     plt.show()
 
-
-
-
-
-
-    #print("Liner ayrıştırılamaz verimizin skoru: ", accuracy2)
