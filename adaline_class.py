@@ -27,10 +27,10 @@ class Adaline():
 
             cost[i]=sum(0.5*((y-self.tahminEt(X))**2)/len(y))
             if cost[i]<eps:
-                sonİter=i+1
+                sonİter=i
                 break
             else:
-                sonİter=i+1
+                sonİter=i
 
 
         return [self.w_,cost,sonİter]
