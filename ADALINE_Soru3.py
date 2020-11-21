@@ -30,7 +30,7 @@ y_test = (testVerisi[:, -1]).reshape(tumVeriler.shape[0]-egitimBoyutu, 1)
 
 ada=Adaline()
 
-agirlikveCost=ada.egit(x_egitim, y_egitim,0.001,2000,0.01)
+agirlikveCost=ada.egit(x_egitim, y_egitim,0.01,1000,0.01)
 tahmin = ada.tahminEt(x_egitim)
 cost=agirlikveCost[1]
 sonİter=agirlikveCost[2]

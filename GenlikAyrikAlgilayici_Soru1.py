@@ -18,30 +18,35 @@ if __name__ == "__main__":
     #verisetinin lineer ayrıştırılabilir olması için 'y' sütununu bu şekilde oluşturduk.
     lineerAyristirilabilirDizi=np.concatenate([x_bias,y],axis=1)
 
-
+    gaa = GenlikteAyrikAlgilayici()
     toplamİter=np.zeros([20,1])
     accuracy=np.zeros([20,1])
 
-
-    randomİndisler1 = np.random.choice(lineerAyristirilabilirDizi.shape[0], size=25, replace=False)
-    egitimVerisi1=lineerAyristirilabilirDizi[randomİndisler1,:]
-    testVerisi1=np.delete(lineerAyristirilabilirDizi,randomİndisler1,axis=0) #buradaki 3 satırda verimizi rastgele seçilen indisler ile eğitim ve test verisi ile ayırdık.
-
-    x_egitim1 = egitimVerisi1[:,:-1]
-    y_egitim1 = (egitimVerisi1[:,-1]).reshape(25,1)
-    x_test1 = testVerisi1[:,:-1]
-    y_test1 = (testVerisi1[:,-1]).reshape(15,1)
-
-    gaa = GenlikteAyrikAlgilayici()
     for i in range(20):
-        gaa.egit(x_egitim1,y_egitim1,1,100,1)
-        toplamİter[i]=(gaa.egit(x_egitim1,y_egitim1,1,100,5))[1]
+        randomİndisler1 = np.random.choice(lineerAyristirilabilirDizi.shape[0], size=25, replace=False)
+        egitimVerisi1=lineerAyristirilabilirDizi[randomİndisler1,:]
+        testVerisi1=np.delete(lineerAyristirilabilirDizi,randomİndisler1,axis=0) #buradaki 3 satırda verimizi rastgele seçilen indisler ile eğitim ve test verisi ile ayırdık.
+
+        x_egitim1 = egitimVerisi1[:,:-1]
+        y_egitim1 = (egitimVerisi1[:,-1]).reshape(25,1)
+        x_test1 = testVerisi1[:,:-1]
+        y_test1 = (testVerisi1[:,-1]).reshape(15,1)
+
+
+
+        gaa.egit(x_egitim1,y_egitim1,0.1,100,1)
+        toplamİter[i]=(gaa.egit(x_egitim1,y_egitim1,0.1,100,1))[1]
         tahmin=gaa.tahminEt(x_test1)
         sonuc=y_test1-tahmin
         accuracy[i]=gaa.skor(sonuc) #modelin doğru eğitilmiş olması için 1 skorunu bekliyoruz.
+
+
     plt.figure()
     plt.scatter(range(1,len(accuracy)+1),accuracy)
     plt.plot(range(1,len(accuracy)+1), accuracy)
+
+    acc = sum(accuracy) / len(accuracy)
+    print("Rastgele eğitim verileri ile yapılan 20 eğitim sonucu test verimizdeki ortalama doğruluk skorumuz: ", acc)
 
     plt.figure()
     plt.scatter(range(1,len(toplamİter)+1), toplamİter)
@@ -73,9 +78,14 @@ if __name__ == "__main__":
         tahmin2 = gaa2.tahminEt(x_test2)
         sonuc = y_test2 - tahmin2
         accuracy2[i] = gaa.skor(sonuc)  # modelin doğru eğitilmiş olması için 1 skorunu bekliyoruz.
+
     plt.figure()
     plt.scatter(range(1, len(accuracy2) + 1), accuracy2)
     plt.plot(range(1, len(accuracy2) + 1), accuracy2)
+
+    acc2 = sum(accuracy2) / len(accuracy2)
+    print("Rastgele eğitim verileri ile yapılan 20 eğitim sonucu test verimizdeki ortalama doğruluk skorumuz: ", acc2)
+
 
     plt.figure()
     plt.scatter(range(1, len(toplamİter2) + 1), toplamİter2)
