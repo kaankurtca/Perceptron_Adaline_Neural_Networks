@@ -34,7 +34,7 @@ agirlikveCost=ada.egit(x_egitim, y_egitim,0.01,1000,0.01)
 tahmin = ada.tahminEt(x_egitim)
 cost=agirlikveCost[1]
 sonİter=agirlikveCost[2]
-print(agirlikveCost[1][sonİter])
+print("eğitimimizi tamamladıktan sonraki ortalama kare hatamız: ",agirlikveCost[1][sonİter])
 
 fig = plt.figure()
 plt.plot(range(len(y_egitim)),y_egitim,c='r')

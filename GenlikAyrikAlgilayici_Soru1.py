@@ -34,8 +34,8 @@ if __name__ == "__main__":
 
 
 
-        gaa.egit(x_egitim1,y_egitim1,0.1,100,1)
-        toplamİter[i]=(gaa.egit(x_egitim1,y_egitim1,0.1,100,1))[1]
+        gaa.egit(x_egitim1,y_egitim1,0.1,1000,1)
+        toplamİter[i]=(gaa.egit(x_egitim1,y_egitim1,0.1,1000,1))[1]
         tahmin=gaa.tahminEt(x_test1)
         sonuc=y_test1-tahmin
         accuracy[i]=gaa.skor(sonuc) #modelin doğru eğitilmiş olması için 1 skorunu bekliyoruz.
