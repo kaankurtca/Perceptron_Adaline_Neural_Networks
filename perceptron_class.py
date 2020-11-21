@@ -23,9 +23,10 @@ class GenlikteAyrikAlgilayici():
                 delta = ogrHizi * (y[j]-tahmin)
                 self.agirlik += (delta * X[j].reshape(-1,1)) #tahmin ve gerçek değer arasındaki farklar ile ağırlığımızı her döngüde değiştiriyoruz.
             if self.skor(y-self.tahminEt(X))==1:
-
-                toplamİter=i
+                toplamİter=i+1
                 break
+            else:
+                toplamİter = i+1
         return [self.agirlik,toplamİter]
 
     def tahminEt(self,input):

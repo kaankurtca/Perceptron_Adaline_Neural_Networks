@@ -48,7 +48,7 @@ gaa=GenlikteAyrikAlgilayici()
 gaa.egit(x_egitim, y_egitim, 1, 100,1)
 tahmin = gaa.tahminEt(x_test)
 sonuc = y_test - tahmin
-
 accuracy = gaa.skor(sonuc)
+
 print(accuracy)
 print((gaa.egit(x_egitim, y_egitim, 1, 100,1))[1])

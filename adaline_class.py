@@ -3,38 +3,44 @@ from numpy.random import rand,randint
 
 class Adaline():
     def __init__(self):
-        self.agirlik = [] #ağırlığımızı burada boş bir dizi olarak tanımladık.
+        self.w_ = [] #ağırlığımızı burada boş bir dizi olarak tanımladık.
 
     def aktivasyonFonks(self, x):
-        return 1 / (1 + np.exp(-x))
+
+        return x
 
     def aktivasyonTurev(self, x):
-        return x * (1 - x)
+        return 1
 
-    def egit(self,X,y,n_iterasyon,n):
-        if n==0:
-            self.agirlik = np.zeros(X.shape[1]).reshape(-1, 1)  # ağırlık vektörümüzü başlangıçta 0 olarak seçtik.
-        elif n==1:
-            self.agirlik = np.ones(X.shape[1]).reshape(-1, 1)  # ağırlık vektörümüzü başlangıçta 1 olarak seçtik.
-        else:
-            self.agirlik = np.random.rand([X.shape[0],1])  # ağırlık vektörümüzü başlangıçta ranstgele seçtik.
+    def egit(self,X,y,lr,n_iterasyon,eps):
 
+        self.w_ = np.ones(X.shape[1]).reshape(-1, 1)  # ağırlık vektörümüzü başlangıçta 1 olarak seçtik.
+
+
+        cost=np.zeros((n_iterasyon,1))
         for i in range(n_iterasyon):
             for j in range(X.shape[0]):
                 tahmin = self.tahminEt(X[j]) #aşağıda tanımladığımız tahminEt() methodunu burada modelimizin eğitimi için kullandık.
                 hata=y[j]-tahmin
-                delta = (hata) * self.aktivasyonTurev(tahmin)
-                self.agirlik += (delta * X[j].reshape(-1,1)) #tahmin ve gerçek değer arasındaki farklar ile ağırlığımızı her döngüde değiştiriyoruz.
+                delta = lr *(hata) * self.aktivasyonTurev(tahmin)
+                self.w_ += (delta * X[j].reshape(-1,1)) #tahmin ve gerçek değer arasındaki farklar ile ağırlığımızı her döngüde değiştiriyoruz.
+
+            cost[i]=sum(0.5*((y-self.tahminEt(X))**2)/len(y))
+            if cost[i]<eps:
+                sonİter=i+1
+                break
+            else:
+                sonİter=i+1
 
 
-        return self.agirlik
+        return [self.w_,cost,sonİter]
 
     def tahminEt(self,input):
-        toplam=np.dot(input,self.agirlik) #girdilerimiz ve ağırlıklar çarpılarak toplam değeri elde ediliyor.
+        toplam=np.dot(input,self.w_) #girdilerimiz ve ağırlıklar çarpılarak toplam değeri elde ediliyor.
         output = np.array([self.aktivasyonFonks(toplam[ind]) for ind in range(toplam.shape[0])])
 
         return output
 
-    def ortKareHata(self,tahmin,y):
-        toplamKareHata= np.array([(y[i]-tahmin[i])**2 for i in range(tahmin.shape[0])])
-        return sum(toplamKareHata)/tahmin.shape[0]
+    # def ortKareHata(self,tahmin,y):
+    #     toplamKareHata= np.array([0.5*((y[i]-tahmin[i])**2) for i in range(tahmin.shape[0])])
+    #     return sum(toplamKareHata)/tahmin.shape[0]
