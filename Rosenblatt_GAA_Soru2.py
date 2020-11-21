@@ -13,15 +13,22 @@ for i in range(X.shape[0]):
         plt.scatter(X[i,0],X[i,1],c='r')
     else:
         plt.scatter(X[i,0],X[i,1],c='g')
-plt.show()
+
 
 
 eklenenSutun=np.ones([X.shape[0],1])
 for i in range(X.shape[0]):
-    eklenenSutun[i]= y[i] - (3*X[i,0]+8*X[i,1])/2
+    eklenenSutun[i]=  X[i,0]**2+X[i,1]**2         #X[i,0]**2 + X[i,1]**2          #y[i] - (3*X[i,0]+8*X[i,1])/2 + 0.25*np.random.rand()
 
+# X[:,0]= [X[index,0]+X[index,1] for index in range(len(X))]
+# X[:,1]= [X[index,1]-X[index,1] for index in range(len(X))]
+# eklenenSutun=np.ones([X.shape[0],1])
+# eklenenSutun = np.array([X[index,0]**2 for index in range(len(X))])
 
 X=np.concatenate([X,eklenenSutun],axis=1)
+bias=np.ones((len(X),1))
+X_bias=np.concatenate([X,bias],axis=1)
+
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 for i in range(X.shape[0]):
@@ -29,9 +36,9 @@ for i in range(X.shape[0]):
         ax.scatter(X[i,0],X[i,1],X[i,2],c='r')
     else:
         ax.scatter(X[i,0],X[i,1],X[i,2],c='g')
-plt.show()
 
-tumVeriler=np.concatenate([X,y],axis=1)
+
+tumVeriler=np.concatenate([X_bias,y],axis=1)
 
 egitimBoyutu=round(tumVeriler.shape[0]*0.8)
 randomİndisler = np.random.choice(tumVeriler.shape[0], size=egitimBoyutu, replace=False)
@@ -45,10 +52,12 @@ y_test = (testVerisi[:, -1]).reshape(tumVeriler.shape[0]-egitimBoyutu, 1)
 
 gaa=GenlikteAyrikAlgilayici()
 
-gaa.egit(x_egitim, y_egitim, 1, 100,1)
+gaa.egit(x_egitim, y_egitim, 0.1, 100,1)
 tahmin = gaa.tahminEt(x_test)
 sonuc = y_test - tahmin
 accuracy = gaa.skor(sonuc)
 
 print(accuracy)
 print((gaa.egit(x_egitim, y_egitim, 1, 100,1))[1])
+
+plt.show()
