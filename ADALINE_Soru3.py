@@ -31,19 +31,23 @@ y_test = (testVerisi[:, -1]).reshape(tumVeriler.shape[0]-egitimBoyutu, 1)
 ada=Adaline()
 
 agirlikveCost=ada.egit(x_egitim, y_egitim,0.01,1000,0.01)
-tahmin = ada.tahminEt(x_egitim)
+tahmin = ada.tahminEt(x_test)
 cost=agirlikveCost[1]
 sonİter=agirlikveCost[2]
 print("eğitimimizi tamamladıktan sonraki ortalama kare hatamız: ",agirlikveCost[1][sonİter])
 
 fig = plt.figure()
-plt.plot(range(len(y_egitim)),y_egitim,c='r')
-plt.plot(range(len(y_egitim)),tahmin,c='b')
+plt.plot(range(len(y_test)),y_test,c='r',label="gerçek değerler")
+plt.plot(range(len(y_test)),tahmin,c='b', label="tahminler")
+plt.legend(loc="upper left")
+plt.title('2 boyutta, tahminlerimizin ve gerçek değerlerin ne kadar örtüştüğünü inceliyoruz.')
 
 fig1 = plt.figure()
 ax1=fig1.add_subplot(111, projection='3d')
-ax1.scatter3D(x_egitim[:,0],x_egitim[:,1],y_egitim,'g')
-ax1.scatter3D(x_egitim[:,0],x_egitim[:,1],tahmin,'b')
+ax1.scatter3D(x_test[:,0],x_test[:,1],y_test,'g', label="gerçek değerler")
+ax1.scatter3D(x_test[:,0],x_test[:,1],tahmin,'b', label="tahminler")
+plt.legend(loc="lower left")
+plt.title('3 boyutta, tahminlerimizin ve gerçek değerlerin ne kadar örtüştüğünü inceliyoruz.')
 
 
 
@@ -51,5 +55,7 @@ ax1.scatter3D(x_egitim[:,0],x_egitim[:,1],tahmin,'b')
 
 plt.figure()
 plt.plot(range(sonİter),agirlikveCost[1][:sonİter],c='b')
+plt.xlabel("iterasyon sayısı")
+plt.ylabel("Ortalama Kare Hata")
 
 plt.show()

@@ -41,6 +41,3 @@ class Adaline():
 
         return output
 
-    # def ortKareHata(self,tahmin,y):
-    #     toplamKareHata= np.array([0.5*((y[i]-tahmin[i])**2) for i in range(tahmin.shape[0])])
-    #     return sum(toplamKareHata)/tahmin.shape[0]
